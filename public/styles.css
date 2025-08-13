@@ -1,0 +1,108 @@
+:root {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --body-bg: #ffffff;
+  --card-bg: #ffffff;
+  --text-color: #212529;
+  --border-color: #dee2e6;
+}
+
+[data-theme="dark"] {
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+  --success-color: #198754;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #0dcaf0;
+  --light-color: #212529;
+  --dark-color: #f8f9fa;
+  --body-bg: #121212;
+  --card-bg: #1e1e1e;
+  --text-color: #f8f9fa;
+  --border-color: #444;
+}
+
+body {
+  background-color: var(--body-bg);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s;
+  margin-bottom: 20px;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.status-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 0.8rem;
+  padding: 5px 10px;
+}
+
+.site-card .card-img-top {
+  height: 100px;
+  object-fit: cover;
+}
+
+.timeline {
+  position: relative;
+  list-style: none;
+  padding-left: 0;
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--border-color);
+  left: 25px;
+  margin: 0;
+}
+
+.timeline > li {
+  position: relative;
+  margin-bottom: 20px;
+  padding-left: 50px;
+}
+
+.timeline > li:before {
+  content: '';
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  left: 20px;
+  top: 5px;
+  border: 2px solid var(--primary-color);
+}
+
+.timeline-event {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  padding: 10px 15px;
+}
+
+.timeline-event.online {
+  border-left: 4px solid var(--success-color);
+}
+
+.timeline-event.offline {
+  border-left: 4px solid var(--danger-color);
+}
