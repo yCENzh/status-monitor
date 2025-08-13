@@ -16,12 +16,27 @@
 
 ## 部署到Netlify
 
+### 通过Netlify按钮一键部署
+
 1. 点击下方按钮将项目部署到Netlify：
 
-   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/status-monitor)
+   [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/yCENzh/status-monitor)
 
 2. 等待部署完成（约1-2分钟）
 3. 访问Netlify提供的域名查看监控面板
+
+### 手动配置部署
+
+如果您希望手动配置，请按照以下步骤：
+
+1. 登录Netlify，选择"New site from git"
+2. 选择您的Git提供商，然后选择这个仓库
+3. 在构建设置中：
+   - Build command: 留空 或填 `echo "No build needed"`
+   - Publish directory: `public`
+4. 点击"Deploy site"
+
+项目部署后，每次将更改推送到仓库时，Netlify都会自动重新部署。
 
 ## 本地开发
 
