@@ -129,7 +129,7 @@ function createSiteCard(site) {
   card.className = 'col-md-4';
   
   const statusClass = site.status === 'online' ? 'bg-success' : 'bg-danger';
-  const statusText = site.status === 'online' ? '在线' : '离线';
+  const statusText = site.status === 'online' ? translations.online || 'Online' : translations.offline || 'Offline';
   const lastChecked = new Date(site.lastChecked).toLocaleString();
   
   card.innerHTML = `
@@ -140,19 +140,21 @@ function createSiteCard(site) {
         <p class="card-text">${site.description}</p>
         <ul class="list-group list-group-flush">
           <li class="list-group-item d-flex justify-content-between">
-            <span>响应时间:</span>
+            <span>${translations.responseTime || 'Response Time:'}</span>
             <span>${site.responseTime}ms</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
-            <span>正常运行时间:</span>
+            <span>${translations.uptime || 'Uptime:'}</span>
             <span>${site.uptime}</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
-            <span>最后检查:</span>
+            <span>${translations.lastChecked || 'Last Checked:'}</span>
             <span>${lastChecked}</span>
           </li>
         </ul>
-        <a href="${site.url}" target="_blank" class="btn btn-outline-primary mt-3" data-i18n="visitSite">访问网站</a>
+        <a href="${site.url}" target="_blank" class="btn btn-outline-primary mt-3">
+          ${translations.visitSite || 'Visit Site'}
+        </a>
       </div>
     </div>
   `;
