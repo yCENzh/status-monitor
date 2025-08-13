@@ -37,12 +37,16 @@ body {
 .card {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
   margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
 }
 
 .card:hover {
   transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0,0,0,0.1);
 }
 
 .status-badge {
@@ -51,6 +55,8 @@ body {
   right: 10px;
   font-size: 0.8rem;
   padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
 .site-card .card-img-top {
@@ -95,8 +101,13 @@ body {
 .timeline-event {
   background: var(--card-bg);
   border: 1px solid var(--border-color);
-  border-radius: 5px;
-  padding: 10px 15px;
+  border-radius: 8px;
+  padding: 12px 15px;
+  transition: all 0.3s ease;
+}
+
+.timeline-event:hover {
+  transform: translateX(5px);
 }
 
 .timeline-event.online {
@@ -105,4 +116,29 @@ body {
 
 .timeline-event.offline {
   border-left: 4px solid var(--danger-color);
+}
+
+.stats-card .card-body {
+  padding: 1.5rem;
+}
+
+.stats-card h1 {
+  font-size: 2.5rem;
+  margin-top: 0.5rem;
+}
+
+.progress {
+  height: 6px;
+  margin-top: 5px;
+}
+
+.site-card .card-body {
+  position: relative;
+  padding: 1.5rem;
+}
+
+.site-card .list-group-item {
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem 0;
 }

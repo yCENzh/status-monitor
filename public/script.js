@@ -5,6 +5,8 @@ let translations = {};
 
 // 初始化
 document.addEventListener('DOMContentLoaded', async () => {
+  // 设置当前年份
+  document.getElementById('current-year').textContent = new Date().getFullYear();
   await initApp();
 });
 
@@ -64,11 +66,15 @@ async function fetchData() {
     const response = await fetch('sites.json');
     sites = await response.json();
     
+    // 先渲染数据
     renderSites();
     renderStats();
     renderTimeline();
+    
+    // 然后初始化图表（需要数据）
     initChart();
     
+    // 最后隐藏加载状态
     showLoading(false);
   } catch (error) {
     console.error('Failed to load data:', error);

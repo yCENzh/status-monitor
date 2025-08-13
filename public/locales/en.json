@@ -16,5 +16,7 @@
   "footerCopyright": "© 2023 Website Status Monitor | ",
   "loading": "Loading data...",
   "online": "Online",
-  "offline": "Offline"
+  "offline": "Offline",
+  "last30Minutes": "Last 30 minutes",
+  "recentEvents": "Recent events"
 }

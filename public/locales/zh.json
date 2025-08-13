@@ -16,5 +16,7 @@
   "footerCopyright": "© 2023 网站状态监控 | ",
   "loading": "正在加载数据...",
   "online": "在线",
-  "offline": "离线"
+  "offline": "离线",
+  "last30Minutes": "最近30分钟",
+  "recentEvents": "最近事件"
 }
