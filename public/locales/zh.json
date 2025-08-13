@@ -1,0 +1,20 @@
+{
+  "heading": "网站状态监控",
+  "totalSites": "总网站数",
+  "onlineSites": "在线网站",
+  "offlineSites": "离线网站",
+  "avgResponse": "平均响应时间",
+  "searchPlaceholder": "搜索网站...",
+  "autoRefresh": "自动刷新",
+  "responseHistory": "响应时间历史",
+  "statusTimeline": "状态历史时间线",
+  "visitSite": "访问网站",
+  "responseTime": "响应时间:",
+  "uptime": "正常运行时间:",
+  "lastChecked": "最后检查:",
+  "footerText": "实时监控您的网站可用性和性能",
+  "footerCopyright": "© 2023 网站状态监控 | ",
+  "loading": "正在加载数据...",
+  "online": "在线",
+  "offline": "离线"
+}

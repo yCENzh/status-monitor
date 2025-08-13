@@ -41,15 +41,15 @@
 
   <div class="container my-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h1>网站状态监控</h1>
+      <h1 data-i18n="heading">网站状态监控</h1>
       <div class="d-flex">
         <div class="input-group me-2" style="width: 300px;">
-          <input type="text" id="search-input" class="form-control" placeholder="搜索网站...">
+          <input type="text" id="search-input" class="form-control" data-i18n-placeholder="searchPlaceholder" placeholder="搜索网站...">
           <button class="btn btn-outline-secondary" type="button"><i class="bi bi-search"></i></button>
         </div>
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="auto-refresh" checked>
-          <label class="form-check-label" for="auto-refresh">自动刷新</label>
+          <label class="form-check-label" for="auto-refresh" data-i18n="autoRefresh">自动刷新</label>
         </div>
       </div>
     </div>
@@ -58,7 +58,7 @@
       <div class="col-md-3">
         <div class="card text-center">
           <div class="card-body">
-            <h5 class="card-title">总网站数</h5>
+            <h5 class="card-title" data-i18n="totalSites">总网站数</h5>
             <h1 id="total-sites">0</h1>
           </div>
         </div>
@@ -66,7 +66,7 @@
       <div class="col-md-3">
         <div class="card text-center">
           <div class="card-body">
-            <h5 class="card-title">在线网站</h5>
+            <h5 class="card-title" data-i18n="onlineSites">在线网站</h5>
             <h1 id="online-sites" class="text-success">0</h1>
           </div>
         </div>
@@ -74,7 +74,7 @@
       <div class="col-md-3">
         <div class="card text-center">
           <div class="card-body">
-            <h5 class="card-title">离线网站</h5>
+            <h5 class="card-title" data-i18n="offlineSites">离线网站</h5>
             <h1 id="offline-sites" class="text-danger">0</h1>
           </div>
         </div>
@@ -82,24 +82,31 @@
       <div class="col-md-3">
         <div class="card text-center">
           <div class="card-body">
-            <h5 class="card-title">平均响应时间</h5>
+            <h5 class="card-title" data-i18n="avgResponse">平均响应时间</h5>
             <h1 id="avg-response">0ms</h1>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="row" id="sites-container">
+    <div id="loading-spinner" class="text-center my-5">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2" data-i18n="loading">正在加载数据...</p>
+    </div>
+    
+    <div class="row" id="sites-container" style="display: none;">
       <!-- 网站卡片将通过JavaScript动态生成 -->
     </div>
 
     <div class="mt-5">
-      <h3>响应时间历史</h3>
+      <h3 data-i18n="responseHistory">响应时间历史</h3>
       <canvas id="response-chart" height="100"></canvas>
     </div>
 
     <div class="mt-5">
-      <h3>状态历史时间线</h3>
+      <h3 data-i18n="statusTimeline">状态历史时间线</h3>
       <ul class="timeline" id="timeline">
         <!-- 时间线事件将通过JavaScript动态生成 -->
       </ul>
@@ -111,7 +118,7 @@
       <div class="row">
         <div class="col-md-6">
           <h5>网站状态监控</h5>
-          <p>实时监控您的网站可用性和性能</p>
+          <p data-i18n="footerText">实时监控您的网站可用性和性能</p>
         </div>
         <div class="col-md-6 text-end">
           <p>© 2023 网站状态监控 | <a href="LICENSE">MIT 许可</a></p>

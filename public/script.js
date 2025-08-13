@@ -1,61 +1,94 @@
-// 模拟数据 - 实际应用中应替换为真实API
-const sites = [
-  {
-    id: 1,
-    name: "谷歌",
-    url: "https://google.com",
-    status: "online",
-    responseTime: 120,
-    lastChecked: "2023-07-15T10:30:00Z",
-    description: "全球最大的搜索引擎",
-    uptime: "99.99%",
-    history: [
-      { timestamp: "2023-07-15T10:00:00Z", status: "online", responseTime: 110 },
-      { timestamp: "2023-07-15T09:30:00Z", status: "online", responseTime: 115 },
-      { timestamp: "2023-07-15T09:00:00Z", status: "offline", responseTime: 0 }
-    ]
-  },
-  {
-    id: 2,
-    name: "百度",
-    url: "https://baidu.com",
-    status: "online",
-    responseTime: 85,
-    lastChecked: "2023-07-15T10:28:00Z",
-    description: "中国最大的搜索引擎",
-    uptime: "99.95%",
-    history: [
-      { timestamp: "2023-07-15T10:00:00Z", status: "online", responseTime: 80 },
-      { timestamp: "2023-07-15T09:30:00Z", status: "online", responseTime: 90 },
-      { timestamp: "2023-07-15T09:00:00Z", status: "online", responseTime: 85 }
-    ]
-  },
-  {
-    id: 3,
-    name: "GitHub",
-    url: "https://github.com",
-    status: "offline",
-    responseTime: 0,
-    lastChecked: "2023-07-15T10:25:00Z",
-    description: "代码托管平台",
-    uptime: "99.90%",
-    history: [
-      { timestamp: "2023-07-15T10:00:00Z", status: "online", responseTime: 200 },
-      { timestamp: "2023-07-15T09:30:00Z", status: "online", responseTime: 210 },
-      { timestamp: "2023-07-15T09:00:00Z", status: "offline", responseTime: 0 }
-    ]
-  }
-];
+// 全局变量
+let sites = [];
+let currentLang = localStorage.getItem('lang') || 'zh';
+let translations = {};
 
 // 初始化
-document.addEventListener('DOMContentLoaded', () => {
-  initTheme();
-  renderSites();
-  renderStats();
-  renderTimeline();
-  initChart();
-  setupEventListeners();
+document.addEventListener('DOMContentLoaded', async () => {
+  await initApp();
 });
+
+async function initApp() {
+  initTheme();
+  await loadTranslations();
+  applyLanguage(currentLang);
+  await fetchData();
+  setupEventListeners();
+}
+
+// 加载语言文件
+async function loadTranslations() {
+  try {
+    const response = await fetch(`locales/${currentLang}.json`);
+    translations = await response.json();
+  } catch (error) {
+    console.error('Failed to load translations:', error);
+  }
+}
+
+// 应用当前语言
+function applyLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  
+  // 更新所有带有data-i18n属性的元素
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[key]) {
+      el.textContent = translations[key];
+    }
+  });
+  
+  // 更新所有带有data-i18n-placeholder属性的元素
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (translations[key]) {
+      el.placeholder = translations[key];
+    }
+  });
+  
+  // 重新渲染数据相关部分
+  if (sites.length > 0) {
+    renderSites();
+    renderStats();
+    renderTimeline();
+  }
+}
+
+// 加载数据
+async function fetchData() {
+  showLoading(true);
+  
+  try {
+    // 实际应用中应调用真实API
+    const response = await fetch('sites.json');
+    sites = await response.json();
+    
+    renderSites();
+    renderStats();
+    renderTimeline();
+    initChart();
+    
+    showLoading(false);
+  } catch (error) {
+    console.error('Failed to load data:', error);
+    showLoading(false);
+  }
+}
+
+// 显示/隐藏加载状态
+function showLoading(show) {
+  const spinner = document.getElementById('loading-spinner');
+  const container = document.getElementById('sites-container');
+  
+  if (show) {
+    spinner.style.display = 'block';
+    container.style.display = 'none';
+  } else {
+    spinner.style.display = 'none';
+    container.style.display = 'flex';
+  }
+}
 
 // 初始化主题
 function initTheme() {
@@ -119,7 +152,7 @@ function createSiteCard(site) {
             <span>${lastChecked}</span>
           </li>
         </ul>
-        <a href="${site.url}" target="_blank" class="btn btn-outline-primary mt-3">访问网站</a>
+        <a href="${site.url}" target="_blank" class="btn btn-outline-primary mt-3" data-i18n="visitSite">访问网站</a>
       </div>
     </div>
   `;
@@ -254,9 +287,20 @@ function setupEventListeners() {
     if (e.target.checked) {
       // 实际应用中应启动定时器
       console.log('自动刷新已启用');
+      setInterval(fetchData, 30000);
     } else {
       console.log('自动刷新已禁用');
+      clearInterval(window.refreshInterval);
     }
+  });
+  
+  // 语言切换
+  document.querySelectorAll('.dropdown-item[data-lang]').forEach(item => {
+    item.addEventListener('click', async (e) => {
+      const lang = e.target.getAttribute('data-lang');
+      await loadTranslations();
+      applyLanguage(lang);
+    });
   });
 }
 
@@ -291,5 +335,5 @@ function fetchData() {
   renderTimeline();
 }
 
-// 每30秒刷新一次数据
-setInterval(fetchData, 30000);
+// 初始化时设置自动刷新定时器
+window.refreshInterval = setInterval(fetchData, 30000);
