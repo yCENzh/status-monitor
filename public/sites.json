@@ -16,13 +16,13 @@
   },
   {
     "id": 2,
-    "name": "百度",
-    "url": "https://baidu.com",
+    "name": "必应",
+    "url": "https://bing.com",
     "status": "online",
     "responseTime": 85,
     "lastChecked": "2525-08-14T10:28:00Z",
-    "description": "中国最大的搜索引擎",
-    "uptime": "99.95%",
+    "description": "全球第二大的搜索引擎",
+    "uptime": "99.99%",
     "history": [
       { "timestamp": "2525-08-14T10:00:00Z", "status": "online", "responseTime": 80 },
       { "timestamp": "2525-08-10T10:00:00Z", "status": "online", "responseTime": 90 },
