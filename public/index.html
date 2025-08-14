@@ -3,303 +3,456 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Status Monitor - 实时网站监控</title>
+  <title>StatusGuard Pro - 企业级网站监控平台</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- 动态背景 -->
-  <div class="animated-bg">
-    <div class="gradient-sphere sphere-1"></div>
-    <div class="gradient-sphere sphere-2"></div>
-    <div class="gradient-sphere sphere-3"></div>
+  <!-- 顶部通知栏 -->
+  <div id="notification-bar" class="notification-bar">
+    <div class="container">
+      <div class="notification-content">
+        <i class="bi bi-info-circle"></i>
+        <span id="notification-text">系统运行正常</span>
+        <button class="notification-close" onclick="closeNotification()">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- 导航栏 -->
-  <nav class="navbar navbar-expand-lg navbar-glass fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="#">
-        <div class="brand-container">
-          <div class="brand-icon">
-            <i class="bi bi-activity"></i>
-          </div>
-          <span class="brand-text">Status Monitor</span>
+  <!-- 侧边导航 -->
+  <nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="bi bi-shield-check"></i>
+        <span>StatusGuard</span>
+      </div>
+    </div>
+    <ul class="sidebar-menu">
+      <li class="active">
+        <a href="#dashboard">
+          <i class="bi bi-speedometer2"></i>
+          <span data-i18n="dashboard">仪表板</span>
+        </a>
+      </li>
+      <li>
+        <a href="#monitors">
+          <i class="bi bi-display"></i>
+          <span data-i18n="monitors">监控列表</span>
+        </a>
+      </li>
+      <li>
+        <a href="#alerts">
+          <i class="bi bi-bell"></i>
+          <span data-i18n="alerts">告警中心</span>
+          <span class="badge">3</span>
+        </a>
+      </li>
+      <li>
+        <a href="#analytics">
+          <i class="bi bi-graph-up"></i>
+          <span data-i18n="analytics">分析报告</span>
+        </a>
+      </li>
+      <li>
+        <a href="#settings">
+          <i class="bi bi-gear"></i>
+          <span data-i18n="settings">系统设置</span>
+        </a>
+      </li>
+    </ul>
+    <div class="sidebar-footer">
+      <div class="user-info">
+        <img src="https://ui-avatars.com/api/?name=Admin&background=667eea&color=fff" alt="User">
+        <div class="user-details">
+          <span class="user-name">管理员</span>
+          <span class="user-role">系统管理</span>
         </div>
-      </a>
-      
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item">
-            <button id="theme-toggle" class="btn btn-icon">
-              <i class="bi bi-moon-stars-fill"></i>
-            </button>
-          </li>
-          <li class="nav-item dropdown">
-            <button class="btn btn-icon dropdown-toggle" data-bs-toggle="dropdown">
-              <i class="bi bi-translate"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end glass-dropdown">
-              <li><a class="dropdown-item" href="#" data-lang="zh">
-                <span class="flag">🇨🇳</span> 中文
-              </a></li>
-              <li><a class="dropdown-item" href="#" data-lang="en">
-                <span class="flag">🇺🇸</span> English
-              </a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-icon" href="https://github.com/yourusername/status-monitor" target="_blank">
-              <i class="bi bi-github"></i>
-            </a>
-          </li>
-        </ul>
       </div>
     </div>
   </nav>
 
-  <!-- 主要内容 -->
+  <!-- 主内容区 -->
   <main class="main-content">
-    <div class="container">
-      <!-- Hero 区域 -->
-      <section class="hero-section" data-aos="fade-up">
-        <div class="row align-items-center">
-          <div class="col-lg-6">
-            <h1 class="hero-title">
-              <span class="gradient-text" data-i18n="heroTitle">实时监控</span>
-              <br>
-              <span data-i18n="heroSubtitle">您的网站状态</span>
-            </h1>
-            <p class="hero-description" data-i18n="heroDescription">
-              全天候监控网站可用性，确保您的在线服务始终保持最佳状态
-            </p>
-            <div class="hero-stats">
-              <div class="stat-item">
-                <div class="stat-number" id="uptime-percentage">99.9%</div>
-                <div class="stat-label" data-i18n="uptimeLabel">总体可用性</div>
-              </div>
-              <div class="stat-item">
-                <div class="stat-number" id="monitoring-count">24/7</div>
-                <div class="stat-label" data-i18n="monitoringLabel">持续监控</div>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="hero-visual">
-              <div class="pulse-container">
-                <div class="pulse-ring"></div>
-                <div class="pulse-ring"></div>
-                <div class="pulse-ring"></div>
-                <div class="pulse-core">
-                  <i class="bi bi-wifi"></i>
-                </div>
-              </div>
-            </div>
-          </div>
+    <!-- 顶部栏 -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="bi bi-list"></i>
+        </button>
+        <div class="breadcrumb">
+          <span>首页</span>
+          <i class="bi bi-chevron-right"></i>
+          <span data-i18n="dashboard">仪表板</span>
         </div>
-      </section>
+      </div>
+      <div class="top-bar-right">
+        <div class="search-box">
+          <i class="bi bi-search"></i>
+          <input type="text" id="global-search" placeholder="全局搜索...">
+        </div>
+        <button class="icon-btn" onclick="toggleTheme()">
+          <i class="bi bi-moon" id="theme-icon"></i>
+        </button>
+        <div class="dropdown">
+          <button class="icon-btn" data-bs-toggle="dropdown">
+            <i class="bi bi-translate"></i>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" onclick="changeLanguage('zh')">中文</a></li>
+            <li><a class="dropdown-item" href="#" onclick="changeLanguage('en')">English</a></li>
+          </ul>
+        </div>
+        <button class="icon-btn notification-btn">
+          <i class="bi bi-bell"></i>
+          <span class="notification-dot"></span>
+        </button>
+      </div>
+    </header>
 
-      <!-- 搜索和筛选栏 -->
-      <section class="search-section" data-aos="fade-up" data-aos-delay="100">
-        <div class="search-container glass-card">
-          <div class="row align-items-center">
-            <div class="col-md-6">
-              <div class="search-box">
-                <i class="bi bi-search search-icon"></i>
-                <input type="text" id="search-input" class="search-input" 
-                       data-i18n-placeholder="searchPlaceholder" 
-                       placeholder="搜索网站...">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="filter-controls">
-                <button class="filter-btn active" data-filter="all">
-                  <i class="bi bi-grid-3x3-gap"></i>
-                  <span data-i18n="filterAll">全部</span>
-                </button>
-                <button class="filter-btn" data-filter="online">
-                  <i class="bi bi-check-circle"></i>
-                  <span data-i18n="filterOnline">在线</span>
-                </button>
-                <button class="filter-btn" data-filter="offline">
-                  <i class="bi bi-x-circle"></i>
-                  <span data-i18n="filterOffline">离线</span>
-                </button>
-                <div class="auto-refresh-toggle">
-                  <input type="checkbox" id="auto-refresh" checked>
-                  <label for="auto-refresh" data-i18n="autoRefresh">自动刷新</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 统计卡片 -->
-      <section class="stats-section" data-aos="fade-up" data-aos-delay="200">
-        <div class="row g-4">
-          <div class="col-md-3 col-sm-6">
-            <div class="stat-card glass-card">
-              <div class="stat-icon-wrapper color-primary">
-                <i class="bi bi-globe2"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-value" id="total-sites">0</h3>
-                <p class="stat-title" data-i18n="totalSites">监控站点</p>
-              </div>
-              <div class="stat-trend trend-up">
-                <i class="bi bi-arrow-up"></i> 12%
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="stat-card glass-card">
-              <div class="stat-icon-wrapper color-success">
-                <i class="bi bi-check-circle"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-value" id="online-sites">0</h3>
-                <p class="stat-title" data-i18n="onlineSites">在线站点</p>
-              </div>
-              <div class="stat-trend trend-up">
-                <i class="bi bi-arrow-up"></i> 5%
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="stat-card glass-card">
-              <div class="stat-icon-wrapper color-danger">
-                <i class="bi bi-exclamation-triangle"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-value" id="offline-sites">0</h3>
-                <p class="stat-title" data-i18n="offlineSites">离线站点</p>
-              </div>
-              <div class="stat-trend trend-down">
-                <i class="bi bi-arrow-down"></i> 3%
-              </div>
-            </div>
-          </div>
-          <div class="col-md-3 col-sm-6">
-            <div class="stat-card glass-card">
-              <div class="stat-icon-wrapper color-info">
-                <i class="bi bi-speedometer2"></i>
-              </div>
-              <div class="stat-content">
-                <h3 class="stat-value" id="avg-response">0ms</h3>
-                <p class="stat-title" data-i18n="avgResponse">平均响应</p>
-              </div>
-              <div class="stat-trend trend-up">
-                <i class="bi bi-arrow-up"></i> 8%
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 加载状态 -->
-      <div id="loading-spinner" class="loading-container">
-        <div class="modern-spinner">
-          <div class="spinner-ring"></div>
-          <div class="spinner-ring"></div>
-          <div class="spinner-ring"></div>
-        </div>
-        <p class="loading-text" data-i18n="loading">正在加载数据...</p>
+    <!-- 仪表板内容 -->
+    <div class="dashboard-content">
+      <!-- 快速操作栏 -->
+      <div class="quick-actions">
+        <button class="action-btn primary" onclick="openAddMonitorModal()">
+          <i class="bi bi-plus-circle"></i>
+          <span>添加监控</span>
+        </button>
+        <button class="action-btn" onclick="runAllChecks()">
+          <i class="bi bi-arrow-clockwise"></i>
+          <span>立即检查</span>
+        </button>
+        <button class="action-btn" onclick="exportReport()">
+          <i class="bi bi-download"></i>
+          <span>导出报告</span>
+        </button>
+        <button class="action-btn" onclick="openSettingsModal()">
+          <i class="bi bi-sliders"></i>
+          <span>阈值设置</span>
+        </button>
       </div>
 
-      <!-- 网站卡片网格 -->
-      <section class="sites-section" data-aos="fade-up" data-aos-delay="300">
-        <div class="section-header">
-          <h2 class="section-title" data-i18n="monitoredSites">监控站点</h2>
-          <div class="view-toggle">
-            <button class="view-btn active" data-view="grid">
-              <i class="bi bi-grid-3x3-gap"></i>
-            </button>
-            <button class="view-btn" data-view="list">
-              <i class="bi bi-list-ul"></i>
-            </button>
+      <!-- 关键指标 -->
+      <div class="metrics-grid">
+        <div class="metric-card" data-aos="fade-up">
+          <div class="metric-header">
+            <span class="metric-title">系统健康度</span>
+            <i class="bi bi-heart-pulse text-success"></i>
+          </div>
+          <div class="metric-value">
+            <span class="value" id="health-score">98.5</span>
+            <span class="unit">%</span>
+          </div>
+          <div class="metric-chart">
+            <canvas id="health-mini-chart"></canvas>
+          </div>
+          <div class="metric-footer">
+            <span class="trend trend-up">
+              <i class="bi bi-arrow-up"></i> 2.3%
+            </span>
+            <span class="period">较昨日</span>
           </div>
         </div>
-        <div class="row g-4" id="sites-container">
-          <!-- 网站卡片将通过JavaScript动态生成 -->
-        </div>
-      </section>
 
-      <!-- 响应时间图表 -->
-      <section class="chart-section" data-aos="fade-up" data-aos-delay="400">
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title" data-i18n="responseHistory">响应时间趋势</h3>
-            <div class="time-range-selector">
-              <button class="time-btn active" data-range="30m">30分钟</button>
-              <button class="time-btn" data-range="1h">1小时</button>
-              <button class="time-btn" data-range="24h">24小时</button>
-              <button class="time-btn" data-range="7d">7天</button>
+        <div class="metric-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="metric-header">
+            <span class="metric-title">平均响应时间</span>
+            <i class="bi bi-speedometer2 text-info"></i>
+          </div>
+          <div class="metric-value">
+            <span class="value" id="avg-response">142</span>
+            <span class="unit">ms</span>
+          </div>
+          <div class="metric-chart">
+            <canvas id="response-mini-chart"></canvas>
+          </div>
+          <div class="metric-footer">
+            <span class="trend trend-down text-success">
+              <i class="bi bi-arrow-down"></i> 15ms
+            </span>
+            <span class="period">较上周</span>
+          </div>
+        </div>
+
+        <div class="metric-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="metric-header">
+            <span class="metric-title">告警次数</span>
+            <i class="bi bi-exclamation-triangle text-warning"></i>
+          </div>
+          <div class="metric-value">
+            <span class="value" id="alert-count">12</span>
+            <span class="unit">次</span>
+          </div>
+          <div class="metric-chart">
+            <canvas id="alert-mini-chart"></canvas>
+          </div>
+          <div class="metric-footer">
+            <span class="trend trend-down text-success">
+              <i class="bi bi-arrow-down"></i> 25%
+            </span>
+            <span class="period">本月</span>
+          </div>
+        </div>
+
+        <div class="metric-card" data-aos="fade-up" data-aos-delay="300">
+          <div class="metric-header">
+            <span class="metric-title">可用率 SLA</span>
+            <i class="bi bi-shield-check text-primary"></i>
+          </div>
+          <div class="metric-value">
+            <span class="value" id="sla-uptime">99.95</span>
+            <span class="unit">%</span>
+          </div>
+          <div class="metric-chart">
+            <canvas id="sla-mini-chart"></canvas>
+          </div>
+          <div class="metric-footer">
+            <span class="status-badge success">达标</span>
+            <span class="period">本月</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 监控站点列表 -->
+      <div class="monitor-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="bi bi-activity"></i>
+            监控站点
+          </h2>
+          <div class="section-controls">
+            <div class="filter-tabs">
+              <button class="filter-tab active" data-filter="all">
+                全部 <span class="count">12</span>
+              </button>
+              <button class="filter-tab" data-filter="healthy">
+                健康 <span class="count">8</span>
+              </button>
+              <button class="filter-tab" data-filter="warning">
+                警告 <span class="count">3</span>
+              </button>
+              <button class="filter-tab" data-filter="critical">
+                严重 <span class="count">1</span>
+              </button>
+            </div>
+            <div class="view-switcher">
+              <button class="view-btn active" data-view="card">
+                <i class="bi bi-grid-3x3-gap"></i>
+              </button>
+              <button class="view-btn" data-view="list">
+                <i class="bi bi-list-ul"></i>
+              </button>
             </div>
           </div>
-          <div class="chart-container">
-            <canvas id="response-chart"></canvas>
-          </div>
         </div>
-      </section>
 
-      <!-- 事件时间线 -->
-      <section class="timeline-section" data-aos="fade-up" data-aos-delay="500">
-        <div class="glass-card">
-          <div class="card-header">
-            <h3 class="card-title" data-i18n="statusTimeline">事件时间线</h3>
-            <span class="badge badge-live">
-              <span class="live-dot"></span>
-              <span data-i18n="liveUpdates">实时更新</span>
-            </span>
+        <div class="monitors-container" id="monitors-container">
+          <!-- 监控卡片将动态生成 -->
+        </div>
+      </div>
+
+      <!-- 实时监控图表 -->
+      <div class="charts-section">
+        <div class="chart-card large">
+          <div class="chart-header">
+            <h3>实时响应时间</h3>
+            <div class="time-selector">
+              <button class="time-btn active">实时</button>
+              <button class="time-btn">1小时</button>
+              <button class="time-btn">24小时</button>
+              <button class="time-btn">7天</button>
+            </div>
           </div>
-          <div class="modern-timeline" id="timeline">
-            <!-- 时间线事件将通过JavaScript动态生成 -->
+          <div class="chart-body">
+            <canvas id="main-response-chart"></canvas>
           </div>
         </div>
-      </section>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>检查方法分布</h3>
+          </div>
+          <div class="chart-body">
+            <canvas id="check-methods-chart"></canvas>
+          </div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>错误类型统计</h3>
+          </div>
+          <div class="chart-body">
+            <canvas id="error-types-chart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- 事件日志 -->
+      <div class="events-section">
+        <div class="section-header">
+          <h2 class="section-title">
+            <i class="bi bi-clock-history"></i>
+            最近事件
+          </h2>
+          <button class="btn-text">查看全部</button>
+        </div>
+        <div class="events-timeline" id="events-timeline">
+          <!-- 事件将动态生成 -->
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- 页脚 -->
-  <footer class="modern-footer">
-    <div class="container">
-      <div class="footer-content">
-        <div class="footer-brand">
-          <div class="brand-icon">
-            <i class="bi bi-activity"></i>
-          </div>
-          <h4>Status Monitor</h4>
-          <p data-i18n="footerText">实时监控您的网站可用性和性能</p>
+  <!-- 添加监控模态框 -->
+  <div class="modal fade" id="addMonitorModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">添加新监控</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <div class="footer-links">
-          <h5 data-i18n="quickLinks">快速链接</h5>
-          <ul>
-            <li><a href="#" data-i18n="documentation">文档</a></li>
-            <li><a href="#" data-i18n="apiReference">API 参考</a></li>
-            <li><a href="#" data-i18n="support">支持</a></li>
-          </ul>
+        <div class="modal-body">
+          <form id="addMonitorForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>站点名称</label>
+                  <input type="text" class="form-control" id="site-name" required>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>URL</label>
+                  <input type="url" class="form-control" id="site-url" required>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>检查方法</label>
+              <div class="check-methods">
+                <label class="method-option">
+                  <input type="checkbox" name="method" value="http" checked>
+                  <span>HTTP/HTTPS</span>
+                </label>
+                <label class="method-option">
+                  <input type="checkbox" name="method" value="ping">
+                  <span>Ping</span>
+                </label>
+                <label class="method-option">
+                  <input type="checkbox" name="method" value="port">
+                  <span>端口检查</span>
+                </label>
+                <label class="method-option">
+                  <input type="checkbox" name="method" value="keyword">
+                  <span>关键词检查</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>检查间隔（分钟）</label>
+                  <input type="number" class="form-control" id="check-interval" value="5" min="1">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>响应时间阈值（ms）</label>
+                  <input type="number" class="form-control" id="response-threshold" value="1000" min="100">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>重试次数</label>
+                  <input type="number" class="form-control" id="retry-count" value="3" min="1" max="10">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label>告警通知</label>
+              <div class="notification-options">
+                <label class="switch">
+                  <input type="checkbox" id="notify-email" checked>
+                  <span class="slider"></span>
+                  <span class="label">邮件通知</span>
+                </label>
+                <label class="switch">
+                  <input type="checkbox" id="notify-sms">
+                  <span class="slider"></span>
+                  <span class="label">短信通知</span>
+                </label>
+                <label class="switch">
+                  <input type="checkbox" id="notify-webhook">
+                  <span class="slider"></span>
+                  <span class="label">Webhook</span>
+                </label>
+              </div>
+            </div>
+          </form>
         </div>
-        <div class="footer-social">
-          <a href="#" class="social-link"><i class="bi bi-github"></i></a>
-          <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
-          <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="saveMonitor()">保存监控</button>
         </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© <span id="current-year"></span> Status Monitor | MIT License</p>
       </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- 阈值设置模态框 -->
+  <div class="modal fade" id="settingsModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">全局阈值设置</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="threshold-setting">
+            <label>响应时间警告阈值</label>
+            <div class="threshold-input">
+              <input type="range" id="warning-threshold" min="100" max="5000" value="1000">
+              <span class="threshold-value">1000ms</span>
+            </div>
+          </div>
+          <div class="threshold-setting">
+            <label>响应时间严重阈值</label>
+            <div class="threshold-input">
+              <input type="range" id="critical-threshold" min="500" max="10000" value="3000">
+              <span class="threshold-value">3000ms</span>
+            </div>
+          </div>
+          <div class="threshold-setting">
+            <label>连续失败次数</label>
+            <div class="threshold-input">
+              <input type="range" id="failure-threshold" min="1" max="10" value="3">
+              <span class="threshold-value">3次</span>
+            </div>
+          </div>
+          <div class="threshold-setting">
+            <label>自动重试延迟</label>
+            <div class="threshold-input">
+              <input type="range" id="retry-delay" min="5" max="60" value="10">
+              <span class="threshold-value">10秒</span>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary" onclick="saveSettings()">保存设置</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="script.js"></script>
+  <script src="monitor.js"></script>
 </body>
 </html>

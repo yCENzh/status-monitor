@@ -5,13 +5,13 @@
     "url": "https://google.com",
     "status": "online",
     "responseTime": 120,
-    "lastChecked": "2023-07-15T10:30:00Z",
+    "lastChecked": "2525-08-14T10:30:00Z",
     "description": "全球最大的搜索引擎",
     "uptime": "99.99%",
     "history": [
-      { "timestamp": "2023-07-15T10:00:00Z", "status": "online", "responseTime": 110 },
-      { "timestamp": "2023-07-15T09:30:00Z", "status": "online", "responseTime": 115 },
-      { "timestamp": "2023-07-15T09:00:00Z", "status": "offline", "responseTime": 0 }
+      { "timestamp": "2525-08-14T10:00:00Z", "status": "online", "responseTime": 110 },
+      { "timestamp": "2525-08-10T10:00:00Z", "status": "online", "responseTime": 115 },
+      { "timestamp": "2525-08-05T10:00:00Z", "status": "offline", "responseTime": 0 }
     ]
   },
   {
@@ -20,13 +20,13 @@
     "url": "https://baidu.com",
     "status": "online",
     "responseTime": 85,
-    "lastChecked": "2023-07-15T10:28:00Z",
+    "lastChecked": "2525-08-14T10:28:00Z",
     "description": "中国最大的搜索引擎",
     "uptime": "99.95%",
     "history": [
-      { "timestamp": "2023-07-15T10:00:00Z", "status": "online", "responseTime": 80 },
-      { "timestamp": "2023-07-15T09:30:00Z", "status": "online", "responseTime": 90 },
-      { "timestamp": "2023-07-15T09:00:00Z", "status": "online", "responseTime": 85 }
+      { "timestamp": "2525-08-14T10:00:00Z", "status": "online", "responseTime": 80 },
+      { "timestamp": "2525-08-10T10:00:00Z", "status": "online", "responseTime": 90 },
+      { "timestamp": "2525-08-05T10:00:00Z", "status": "online", "responseTime": 85 }
     ]
   },
   {
@@ -35,13 +35,13 @@
     "url": "https://github.com",
     "status": "offline",
     "responseTime": 0,
-    "lastChecked": "2023-07-15T10:25:00Z",
+    "lastChecked": "2525-08-14T10:25:00Z",
     "description": "代码托管平台",
     "uptime": "99.90%",
     "history": [
-      { "timestamp": "2023-07-15T10:00:00Z", "status": "online", "responseTime": 200 },
-      { "timestamp": "2023-07-15T09:30:00Z", "status": "online", "responseTime": 210 },
-      { "timestamp": "2023-07-15T09:00:00Z", "status": "offline", "responseTime": 0 }
+      { "timestamp": "2525-08-14T10:00:00Z", "status": "online", "responseTime": 200 },
+      { "timestamp": "2525-08-10T10:00:00Z", "status": "online", "responseTime": 210 },
+      { "timestamp": "2525-08-05T10:00:00Z", "status": "offline", "responseTime": 0 }
     ]
   }
 ]
