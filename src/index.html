@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网站监控状态</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 网站监控面板</h1>
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-label">在线</span>
+                    <span class="stat-value" id="online-count">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">离线</span>
+                    <span class="stat-value" id="offline-count">0</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">检测中</span>
+                    <span class="stat-value" id="checking-count">0</span>
+                </div>
+            </div>
+            <div class="last-update">
+                最后更新: <span id="last-update">--</span>
+            </div>
+        </header>
+        
+        <main>
+            <div class="monitor-grid" id="monitor-grid">
+                <!-- 监控项将通过JavaScript动态添加 -->
+            </div>
+        </main>
+        
+        <footer>
+            <p>自动刷新间隔: <span id="refresh-interval">30</span>秒</p>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill"></div>
+            </div>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

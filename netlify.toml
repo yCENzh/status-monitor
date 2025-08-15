@@ -1,8 +1,11 @@
 [build]
-  publish = "public"
+  publish = "src"
   command = "echo 'No build needed'"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[functions]
+  directory = "netlify/functions"

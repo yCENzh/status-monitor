@@ -1,0 +1,20 @@
+{
+    "sites": [
+        {
+            "name": "Google",
+            "url": "https://www.google.com"
+        },
+        {
+            "name": "GitHub",
+            "url": "https://github.com"
+        },
+        {
+            "name": "百度",
+            "url": "https://www.baidu.com"
+        },
+        {
+            "name": "淘宝",
+            "url": "https://www.taobao.com"
+        }
+    ]
+}
